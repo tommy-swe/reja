@@ -11,7 +11,6 @@ app.use(express.json());
 app.use(express.urlencoded({extended: true}));
 
 
-
 // 2: Session code
 // 3 Views code
 app.set("views", "views");
@@ -19,18 +18,27 @@ app.set("view engine", "ejs"); // backend ichida html front end yasaymiz
 
 
 // 4 Routing Code
-app.get("/hello", function(req, res) {
-    res.end('<h1 style="background: red"> Hello World! by BekzodAli</h1>');
+app.post("/create-item", (req, res) => {
+    console.log(req);     // post bu DB-ga malumot olip keladi
+    res.json({test: "success"});
 });
 
-app.get("/gift", function(req, res) {
-    res.end('<h1> Siz sovgalar bolimidasiz! </h1>');
+app.get('/', function(req, res) {
+    res.render("harid");  // get DB-dan malumotni olish va uqish uchun 
 });
 
-app.get("/blog", function(req, res) {
-    res.end('<h1 style="background: green"> Siz Blog bolimidasiz! </h1>');
-});
 
+// app.get("/hello", function(req, res) {
+//     res.end('<h1 style="background: red"> Hello World! by BekzodAli</h1>');
+// });
+
+// app.get("/gift", function(req, res) {
+//     res.end('<h1> Siz sovgalar bolimidasiz! </h1>');
+// });
+
+// app.get("/blog", function(req, res) {
+//     res.end('<h1 style="background: green"> Siz Blog bolimidasiz! </h1>');
+// });
 
 
 const server = http.createServer(app);
