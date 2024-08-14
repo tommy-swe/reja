@@ -1,13 +1,14 @@
+
 console.log("Web serverni boshlash");
 const express =  require("express");
 const app = express();
 const http = require("http");
 
+
 // 1 kirish code
 app.use(express.static("public"));
 app.use(express.json());
 app.use(express.urlencoded({extended: true}));
-
 
 
 
@@ -31,8 +32,11 @@ app.get("/blog", function(req, res) {
 });
 
 
+
 const server = http.createServer(app);
 let PORT = 3001;
 server.listen(PORT, function(){
     console.log(`The server is Running successfully on port: ${PORT}`);
 });
+
+
