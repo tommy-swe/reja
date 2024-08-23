@@ -36,17 +36,39 @@ app.set("view engine", "ejs"); // backend ichida html front end yasaymiz
 
 // 4 Routing Code
 app.post("/create-item", (req, res) => {
-    console.log(req);     // post bu DB-ga malumot olip keladi
-    res.json({test: "success"});
+    console.log('user entered /create-item');
+    console.log(req.body);     // post bu DB-ga malumot olip keladi
+    const new_reja = req.body.reja;
+    db.collection("plans").insertOne({reja: new_reja}, (err, data) => {
+        if(err) {
+            console.log(err);
+            res.end("something went wrong!");
+        } else {
+            res.end('Successfully added');
+        }
+    });
 });
+    // res.end("success");
+//    res.json({test: "success"});
 
 
 app.get('/author', (req, res) => {
     res.render("author", {user: user});
 });
 
-app.get('/', function(req, res) {
-    res.render("reja");  // get DB-dan malumotni olish va uqish uchun 
+app.get("/", async function(req, res) {
+    console.log('user entered /');
+    db.collection("plans")
+    .find()
+    .toArray((err, data) => {
+        if(err) {
+            console.log(err);
+            res.end("Something went wrong!");
+        } else {
+            // console.log(data);
+            res.render("reja", {items: data});  // get DB-dan malumotni olish va uqish uchun
+        }
+    }); 
 });
 
 
@@ -57,4 +79,6 @@ module.exports = app;
 //     console.log(`The server is Running successfully on port: ${PORT}, http://localhost:${PORT}`);
 // });
 
+
+// 
 
