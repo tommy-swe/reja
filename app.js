@@ -40,16 +40,19 @@ app.post("/create-item", (req, res) => {
     console.log(req.body);     // post bu DB-ga malumot olip keladi
     const new_reja = req.body.reja;
     db.collection("plans").insertOne({reja: new_reja}, (err, data) => {
-        if(err) {
-            console.log(err);
-            res.end("something went wrong!");
-        } else {
-            res.end('Successfully added');
-        }
+        console.log(data.ops);
+        res.json(data.ops[0]);
+        // if(err) {
+        //     console.log(err);
+        //     res.end("something went wrong!");
+        // } else {
+        //     res.end('Successfully added');
+        // }
     });
 });
     // res.end("success");
 //    res.json({test: "success"});
+
 
 
 app.get('/author', (req, res) => {
