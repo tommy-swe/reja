@@ -10,6 +10,7 @@ const fs = require("fs");
 // MongoDB chaqirish section===
 
 const db = require("./server").db();
+const mongodb = require("mongodb");
 
 
 let user;
@@ -53,6 +54,14 @@ app.post("/create-item", (req, res) => {
     // res.end("success");
 //    res.json({test: "success"});
 
+app.post("/delete-item", (req, res) => {
+    const id = req.body.id;
+    db.collection("plans").deleteOne(
+    {_id: new mongodb.ObjectId(id) }, 
+    function(err, data) {
+        res.json({state: "success" });
+    });
+});
 
 
 app.get('/author', (req, res) => {

@@ -1,5 +1,7 @@
 // const { response } = require("../app");
 
+// const { response } = require("../app");
+
 console.log("Frontend JS ishga tushdi!");
 
 function itemTemplate(item) {
@@ -38,4 +40,31 @@ document.getElementById("create-form")
     .catch((err) => {
         console.log("iltimos qayta urinib koring!");
     });
+});
+
+document.addEventListener("click", function(e) {
+    // delete oper
+    console.log(e.target);
+    if (e.target.classList.contains("delete-me")) {
+        if (confirm("aniq ochirmoqchimisiz ?")) {
+            axios
+            .post("/delete-item", {id: e.target.getAttribute("data-id")})
+                .then((response) =>{
+                    console.log(response.data);
+                    e.target.parentElement.parentElement.remove();
+                })
+                .catch((err) =>{
+                    console.log("Iltimos qayta harakat qiling!");
+                });
+        //     alert("yes deb javob berildi!");
+        // } else {
+        //     alert("NO deb javob berildi!");   
+        }
+        // alert('Siz delete tugmasini bosdingiz!');
+    }
+
+    // edit oper
+    if (e.target.classList.contains("edit-me")) {
+        alert('Siz Edit tugmasini bosdingiz!');
+    }
 });

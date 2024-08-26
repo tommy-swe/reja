@@ -174,3 +174,33 @@ console.log("TASK A ANSWER:", result);
 }
 
 console.log("TASK B ANSWER:", countDigits("ad2a54y79wet0sfgb9"));
+
+
+
+
+
+// C-TASK:==========================
+
+// Shunday function tuzing, u 2ta string parametr ega bolsin, hamda agar har 
+// ikkala string bir hil harflardan iborat bolsa true aks holda false qaytarsin
+// MASALAN checkContent("mitgroup", "gmtiprou") return qiladi true;
+
+// Sortlash operatsiyasi orqali yechamiz
+function checkContent(strA, strB) {
+    if (strA.length !== strB.length)
+        return false;
+    
+    let sortedStrA = strA
+    .split('')
+    .sort()
+    .join('');
+
+    let sortedStrB = strB
+    .split('')
+    .sort()
+    .join('');
+
+    return sortedStrA === sortedStrB;
+}
+
+console.log("TASK C ANSWER:", checkContent("mitgroup", "gmtiprou")); 
