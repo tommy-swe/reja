@@ -8,7 +8,6 @@ const fs = require("fs");
 
 
 // MongoDB chaqirish section===
-
 const db = require("./server").db();
 const mongodb = require("mongodb");
 
@@ -39,6 +38,7 @@ app.set("view engine", "ejs"); // backend ichida html front end yasaymiz
 app.post("/create-item", (req, res) => {
     console.log('user entered /create-item');
     console.log(req.body);     // post bu DB-ga malumot olip keladi
+    
     const new_reja = req.body.reja;
     db.collection("plans").insertOne({reja: new_reja}, (err, data) => {
         console.log(data.ops);
@@ -54,6 +54,8 @@ app.post("/create-item", (req, res) => {
     // res.end("success");
 //    res.json({test: "success"});
 
+
+
 app.post("/delete-item", (req, res) => {
     const id = req.body.id;
     db.collection("plans").deleteOne(
@@ -64,9 +66,36 @@ app.post("/delete-item", (req, res) => {
 });
 
 
+
+app.post("/edit-item",(req, res) => {
+    const data = req.body;
+    console.log(data);
+    db.collection("plans").findOneAndUpdate(
+        {_id: new mongodb.ObjectId(data.id) },
+        { $set: { reja: data.new_input } },
+        (err, data) => {
+            res.json({state: "success"});
+        }
+    );
+    // res.end("done");
+    });
+
+
+
+app.post("/delete-all", (req, res) => {
+    if (req.body.delete_all) {
+        db.collection("plans").deleteMany(function (err, data) {
+            res.json({state: "hamma rejalar ochirildi!"});
+        });
+    }
+});
+
+
+
 app.get('/author', (req, res) => {
     res.render("author", {user: user});
 });
+
 
 app.get("/", async function(req, res) {
     console.log('user entered /');

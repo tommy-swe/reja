@@ -1,8 +1,5 @@
-// const { response } = require("../app");
-
-// const { response } = require("../app");
-
 console.log("Frontend JS ishga tushdi!");
+
 
 function itemTemplate(item) {
     return `<li
@@ -42,6 +39,8 @@ document.getElementById("create-form")
     });
 });
 
+
+
 document.addEventListener("click", function(e) {
     // delete oper
     console.log(e.target);
@@ -65,6 +64,33 @@ document.addEventListener("click", function(e) {
 
     // edit oper
     if (e.target.classList.contains("edit-me")) {
-        alert('Siz Edit tugmasini bosdingiz!');
+        // alert('Siz Edit tugmasini bosdingiz!');
+       let userInput = prompt(
+        "o`zgartirish kiriting!", 
+        e.target.parentElement.parentElement.querySelector(".item-text").innerHTML
+    );
+    if(userInput) {
+        axios
+        .post("/edit-item", {
+            id: e.target.getAttribute("data-id"),
+            new_input: userInput,
+        })
+        .then((response) => {
+            console.log(response.data);
+            e.target.parentElement.parentElement.querySelector(
+                ".item-text"
+            ).innerHTML = userInput;
+        })
+        .catch((err) => {
+            console.log("iltimos qaytadan harakat qiling!")
+        });
+       } 
     }
+});
+
+document.getElementById("clean-all").addEventListener("click", () => {
+    axios.post("/delete-all", {delete_all: true}).then((response) => {
+        alert(response.data.state);
+        document.location.reload();
+    });
 });
