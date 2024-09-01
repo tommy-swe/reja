@@ -3,6 +3,46 @@ console.log('TRAIN AREA!');
 console.log('======================================');
 
 
+/*F-TASK: 
+
+Shunday findDoublers function tuzing, unga faqat bitta string argument pass bolib,
+agar stringda bir hil harf qatnashgan bolsa true, qatnashmasa false qaytarishi kerak.
+
+MASALAN: getReverse("hello") return true return qiladi*/
+
+/*Yechim: FindDoublers funksiyasini samaraliroq qilish uchun, biz Set() DS-dan foydalanishimiz mumkin.
+To'plam biz uchun nusxalarni avtomatik ravishda qayta ishlaydi, bu bizga satrdagi takroriy belgilarni 
+tekshirishning yaxshi usuli bolishi m-m. Ushbu usul ob'ektni uzunroq stringlar uchun ishlatish bilan 
+solishtirganda yaxshiroq ishlashni taklif qila oladi, chunki Set() operatsiyalari optimallashtirilgan ekan. */
+
+function findDoublers(string) {
+    const seenChars = new Set(); 
+    // konstanta orqali str elementlari uchun bosh set() yaratib olamiz
+
+    for (let i = 0; i < string.length; i++) {
+        const char = string[i];
+        // har bir elementni loop orqali check qilamiz
+
+        if (seenChars.has(char)) {
+            return true;    
+        }
+        // agar str-ning ikkinchi yoki takroran kelgan elementi setda ham bolsa demak True olamiz!
+
+        seenChars.add(char);
+    }  // unday bomasa str eleni setga yangi set element sifatida qushamiz
+
+    return false; // mavjud bolmasa false
+}
+
+
+// call and test qilamiz!
+console.log('================================')
+console.log("TASK F ANSWER:", findDoublers("hello")); 
+console.log("TASK F ANSWER:", findDoublers("MIT"));
+
+
+
+
 /*E-TASK: 
 
 Shunday function tuzing, u bitta string argumentni qabul qilib osha stringni teskari qilib return qilsin.
