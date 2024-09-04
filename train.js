@@ -2,6 +2,33 @@ console.log('Train task ishga tushdi!');
 console.log('TRAIN AREA!');
 console.log('======================================');
 
+/* G-TASK: 
+
+Shunday function tuzingki unga integerlardan iborat array pass bolsin va function 
+bizga osha arrayning eng katta qiymatiga tegishli birinchi indexni qaytarsin.
+
+MASALAN: getHighestIndex([5, 21, 12, 21, 8]) return qiladi 1 sonini.*/
+
+// arrayni tekshirish kerakligi uchun Loopdan foydalanib yechib ko`ramiz:
+function getHighestIndex(arr) {
+    let maxIndex = 0; 
+    // maxindexni 0 ga tenglab olamiz
+    for (let i = 1; i < arr.length; i++) { 
+        // ikkinchi elementdan boshlab loop qilamiz
+        if (arr[i] > arr[maxIndex]) { 
+            // Agar joriy element hozirgacha topilgan maksimal indexdan katta bo'lsa
+            maxIndex = i; // maksimal indexni joriy element indexsiga yangilaymiz 
+        }
+    }
+    return maxIndex; // eng katta indexga ega element indexsini qaytaramiz
+}
+
+// call and test qilamiZ!
+console.log('================================')
+console.log("TASK G ANSWER:", getHighestIndex([5, 21, 12, 21, 8]));
+console.log("TASK G ANSWER:", getHighestIndex([5, 1, 17, 21, 0]));
+
+
 
 /*F-TASK: 
 
