@@ -1,5 +1,5 @@
 
-console.log("Web serverni boshlash");
+console.log("Starting web Server");
 const express = require("express");
 const res = require("express/lib/response");
 const app = express();
@@ -7,7 +7,7 @@ const app = express();
 const fs = require("fs");
 
 
-// MongoDB chaqirish section===
+// MongoDB calling section===
 const db = require("./server").db();
 const mongodb = require("mongodb");
 
@@ -22,7 +22,7 @@ fs.readFile("database/user.json", "utf8", (err, data) => {
 });
 
 
-// 1 kirish code
+// 1 Entry code
 app.use(express.static("public"));
 app.use(express.json());
 app.use(express.urlencoded({extended: true}));
@@ -31,13 +31,13 @@ app.use(express.urlencoded({extended: true}));
 // 2: Session code
 // 3 Views code
 app.set("views", "views");
-app.set("view engine", "ejs"); // backend ichida html front end yasaymiz
+app.set("view engine", "ejs"); // BSSR =>>> backend server side rendering
 
 
 // 4 Routing Code
 app.post("/create-item", (req, res) => {
     console.log('user entered /create-item');
-    console.log(req.body);     // post bu DB-ga malumot olip keladi
+    console.log(req.body);     // creating new item to the DB
     
     const new_reja = req.body.reja;
     db.collection("plans").insertOne({reja: new_reja}, (err, data) => {
@@ -85,7 +85,7 @@ app.post("/edit-item",(req, res) => {
 app.post("/delete-all", (req, res) => {
     if (req.body.delete_all) {
         db.collection("plans").deleteMany(function (err, data) {
-            res.json({state: "hamma rejalar ochirildi!"});
+            res.json({state: "All Plans deleted Successfully!"});
         });
     }
 });
@@ -107,7 +107,7 @@ app.get("/", async function(req, res) {
             res.end("Something went wrong!");
         } else {
             // console.log(data);
-            res.render("reja", {items: data});  // get DB-dan malumotni olish va uqish uchun
+            res.render("reja", {items: data});  // get item from DB and read it
         }
     }); 
 });
@@ -120,6 +120,4 @@ module.exports = app;
 //     console.log(`The server is Running successfully on port: ${PORT}, http://localhost:${PORT}`);
 // });
 
-
-// 
 
